@@ -86,7 +86,7 @@ DATABASES = {
 
 
 GRAPHENE = {
-    'SCHEMA:' 'hotline_django.schema.schema',
+    'SCHEMA': 'hotline_django.schema.schema',
 }
 
 

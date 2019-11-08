@@ -1,39 +1,39 @@
 import graphene
-from graphene_django import DjangoObjectType
-from .models import *
 from graphene_django.filter import DjangoFilterConnectionField
+from graphene_django.types import DjangoObjectType
+from .models import *
 
 
 class CustomerNode(DjangoObjectType):
     class Meta:
         model = Customer
-        filter_fields = ['name', 'street', 'city', 'postal_code', ]
         interfaces = (graphene.relay.Node,)
+        filter_fields = ['name', 'street', 'city', 'postal_code', ]
 
 
 class ProfilNode(DjangoObjectType):
     class Meta:
         model = Profil
-        filter_fields = ['reference', 'name', 'rank', ]
         interfaces = (graphene.relay.Node,)
+        filter_fields = ['reference', 'name', 'rank', ]
 
 
 class PersonNode(DjangoObjectType):
     class Meta:
         model = Person
-        filter_fields = ['user', 'phone', 'customer', 'profil', ]
         interfaces = (graphene.relay.Node,)
+        filter_fields = ['user', 'phone', 'customer', 'profil', ]
 
 
 class TicketNode(DjangoObjectType):
     class Meta:
         model = Ticket
+        interfaces = (graphene.relay.Node,)
         filter_fields = ['location', 'description',
                          'user', 'customer', 'technician', ]
-        interfaces = (graphene.relay.Node,)
 
 
-class Query(object):
+class Query(graphene.ObjectType):
     customer = graphene.relay.Node.Field(CustomerNode)
     customers = DjangoFilterConnectionField(CustomerNode)
 

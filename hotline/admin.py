@@ -7,19 +7,20 @@ from .models import *
 
 
 class CustomerAdmin(admin.ModelAdmin):
-    fields = ('name', 'street', 'city', 'postal_code',)
+    list_display = ('name', 'street', 'city', 'postal_code',)
 
 
 class ProfilAdmin(admin.ModelAdmin):
-    fields = ('reference', 'name', 'rank',)
+    fielist_displaylds = ('reference', 'name', 'rank',)
 
 
 class PersonAdmin(admin.ModelAdmin):
-    fields = ('user', 'phone', 'customer', 'profil',)
+    list_display = ('user', 'phone', 'customer', 'profil',)
 
 
 class TicketAdmin(admin.ModelAdmin):
-    fields = ('location', 'description', 'user', 'customer', 'technician',)
+    list_display = ('location', 'description',
+                    'user', 'customer', 'technician',)
 
 
 admin.site.register(Customer, CustomerAdmin)

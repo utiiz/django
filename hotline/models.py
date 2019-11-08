@@ -23,7 +23,7 @@ class Profil(models.Model):
     rank = models.IntegerField()
 
     def __str__(self):
-        return self.reference
+        return self.name
 
 
 class Person(models.Model):
