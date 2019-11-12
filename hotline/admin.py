@@ -7,7 +7,7 @@ from .models import *
 
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'street', 'city', 'postal_code',)
+    list_display = ('name', 'street', 'city', 'postal_code', 'technician',)
 
 
 class ProfilAdmin(admin.ModelAdmin):
@@ -15,12 +15,12 @@ class ProfilAdmin(admin.ModelAdmin):
 
 
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('user', 'phone', 'customer', 'profil',)
+    list_display = ('id', 'user', 'phone', 'customer', 'profil',)
 
 
 class TicketAdmin(admin.ModelAdmin):
     list_display = ('location', 'description',
-                    'user', 'customer', 'technician',)
+                    'person', 'customer', 'technician',)
 
 
 admin.site.register(Customer, CustomerAdmin)

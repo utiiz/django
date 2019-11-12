@@ -1,36 +1,10 @@
 import graphene
-from graphene_django.filter import DjangoFilterConnectionField
 from graphene_django.types import DjangoObjectType
+from graphene_django.filter import DjangoFilterConnectionField
+from graphql_relay.node.node import from_global_id
 from .models import *
-
-
-class CustomerNode(DjangoObjectType):
-    class Meta:
-        model = Customer
-        interfaces = (graphene.relay.Node,)
-        filter_fields = ['name', 'street', 'city', 'postal_code', ]
-
-
-class ProfilNode(DjangoObjectType):
-    class Meta:
-        model = Profil
-        interfaces = (graphene.relay.Node,)
-        filter_fields = ['reference', 'name', 'rank', ]
-
-
-class PersonNode(DjangoObjectType):
-    class Meta:
-        model = Person
-        interfaces = (graphene.relay.Node,)
-        filter_fields = ['user', 'phone', 'customer', 'profil', ]
-
-
-class TicketNode(DjangoObjectType):
-    class Meta:
-        model = Ticket
-        interfaces = (graphene.relay.Node,)
-        filter_fields = ['location', 'description',
-                         'user', 'customer', 'technician', ]
+from .nodes import *
+from .mutations import *
 
 
 class Query(graphene.ObjectType):
@@ -45,3 +19,21 @@ class Query(graphene.ObjectType):
 
     ticket = graphene.relay.Node.Field(TicketNode)
     tickets = DjangoFilterConnectionField(TicketNode)
+
+    user = graphene.relay.Node.Field(UserNode)
+    users = DjangoFilterConnectionField(UserNode)
+
+
+# MUTATIONS
+class Mutation(graphene.AbstractType):
+    create_customer = CreateCustomer.Field()
+    create_profil = CreateProfil.Field()
+    create_person = CreatePerson.Field()
+    create_ticket = CreateTicket.Field()
+
+    update_customer = UpdateCustomer.Field()
+    update_profil = UpdateProfil.Field()
+    update_person = UpdatePerson.Field()
+    update_ticket = UpdateTicket.Field()
+
+    delete_customer = DeleteCustomer.Field()
