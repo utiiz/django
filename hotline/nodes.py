@@ -11,9 +11,9 @@ class CustomerNode(DjangoObjectType):
         interfaces = (graphene.relay.Node,)
 
 
-class ProfilNode(DjangoObjectType):
+class ProfileNode(DjangoObjectType):
     class Meta:
-        model = Profil
+        model = Profile
         filter_fields = ['reference', 'name', 'rank', ]
         interfaces = (graphene.relay.Node,)
 
@@ -21,7 +21,7 @@ class ProfilNode(DjangoObjectType):
 class PersonNode(DjangoObjectType):
     class Meta:
         model = Person
-        filter_fields = ['user', 'phone', 'customer', 'profil', ]
+        filter_fields = ['user', 'phone', 'customer', 'profile', ]
         interfaces = (graphene.relay.Node,)
 
 

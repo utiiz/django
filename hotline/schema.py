@@ -11,8 +11,8 @@ class Query(graphene.ObjectType):
     customer = graphene.relay.Node.Field(CustomerNode)
     customers = DjangoFilterConnectionField(CustomerNode)
 
-    profil = graphene.relay.Node.Field(ProfilNode)
-    profils = DjangoFilterConnectionField(ProfilNode)
+    profile = graphene.relay.Node.Field(ProfileNode)
+    profiles = DjangoFilterConnectionField(ProfileNode)
 
     person = graphene.relay.Node.Field(PersonNode)
     persons = DjangoFilterConnectionField(PersonNode)
@@ -27,13 +27,16 @@ class Query(graphene.ObjectType):
 # MUTATIONS
 class Mutation(graphene.AbstractType):
     create_customer = CreateCustomer.Field()
-    create_profil = CreateProfil.Field()
+    create_profile = CreateProfile.Field()
     create_person = CreatePerson.Field()
     create_ticket = CreateTicket.Field()
 
     update_customer = UpdateCustomer.Field()
-    update_profil = UpdateProfil.Field()
+    update_profile = UpdateProfile.Field()
     update_person = UpdatePerson.Field()
     update_ticket = UpdateTicket.Field()
 
     delete_customer = DeleteCustomer.Field()
+    delete_profile = DeleteProfile.Field()
+    delete_person = DeletePerson.Field()
+    delete_ticket = DeleteTicket.Field()

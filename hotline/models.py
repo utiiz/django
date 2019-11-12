@@ -8,10 +8,9 @@ from django.core.validators import RegexValidator
 
 
 class Customer(models.Model):
-    name = models.CharField(max_length=255, null=False,
-                            default="New customer", unique=True)
-    street = models.CharField(max_length=255, null=True)
-    city = models.CharField(max_length=255, null=True)
+    name = models.CharField(max_length=255, null=False, unique=True)
+    street = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
     postal_code = models.CharField(
         max_length=5,
         validators=[
@@ -20,26 +19,27 @@ class Customer(models.Model):
                 message='Postal code must be entered in the format: \'99999\'.'
             )
         ],
+        blank=True,
         null=True
     )
     technician = models.ForeignKey(
-        'Person', on_delete=models.PROTECT, related_name='+', null=True)
+        'Person', on_delete=models.PROTECT, related_name='+', blank=True, null=True)
 
     def __str__(self):
         return self.name
 
 
-class Profil(models.Model):
-    reference = models.CharField(max_length=10)
-    name = models.CharField(max_length=100)
-    rank = models.IntegerField()
+class Profile(models.Model):
+    reference = models.CharField(max_length=10, null=False, unique=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.name
 
 
 class Person(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, blank=False)
     phone = models.CharField(
         max_length=15,
         validators=[
@@ -48,26 +48,31 @@ class Person(models.Model):
                 message='Phone number must be entered in the format: \'+999999999\'. Up to 15 digits allowed.'
             )
         ],
+        blank=True,
         null=True
     )
     customer = models.ForeignKey(
-        Customer, on_delete=models.PROTECT)
-    profil = models.ForeignKey(
-        Profil, on_delete=models.PROTECT)
+        Customer, on_delete=models.PROTECT,
+        blank=True,
+        null=True)
+    profile = models.ForeignKey(
+        Profile, on_delete=models.PROTECT,
+        blank=True,
+        null=True)
 
     def __str__(self):
         return self.user.username
 
 
 class Ticket(models.Model):
-    location = models.CharField(max_length=255)
-    description = models.TextField()
+    location = models.CharField(max_length=255, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     person = models.ForeignKey(
-        Person, related_name='tickets', on_delete=models.PROTECT, null=True)
+        Person, related_name='tickets', on_delete=models.PROTECT, blank=True, null=True)
     customer = models.ForeignKey(
-        Customer, related_name='tickets', on_delete=models.PROTECT)
+        Customer, related_name='tickets', on_delete=models.PROTECT, blank=True, null=True)
     technician = models.ForeignKey(
-        Person, related_name='assigned_tickets', on_delete=models.PROTECT, null=True)
+        Person, related_name='assigned_tickets', on_delete=models.PROTECT, blank=True, null=True)
 
     def __str__(self):
         return self.location

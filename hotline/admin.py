@@ -10,12 +10,12 @@ class CustomerAdmin(admin.ModelAdmin):
     list_display = ('name', 'street', 'city', 'postal_code', 'technician',)
 
 
-class ProfilAdmin(admin.ModelAdmin):
+class ProfileAdmin(admin.ModelAdmin):
     fielist_displaylds = ('reference', 'name', 'rank',)
 
 
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'phone', 'customer', 'profil',)
+    list_display = ('id', 'user', 'phone', 'customer', 'profile',)
 
 
 class TicketAdmin(admin.ModelAdmin):
@@ -24,6 +24,6 @@ class TicketAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Customer, CustomerAdmin)
-admin.site.register(Profil, ProfilAdmin)
+admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Ticket, TicketAdmin)

@@ -1,0 +1,47 @@
+[
+    {
+        "model": "hotline.profile",
+        "pk": 1,
+        "fields": {
+            "reference": "admin",
+            "name": "Administrateur",
+            "rank": 3
+        }
+    },
+    {
+        "model": "hotline.profile",
+        "pk": 2,
+        "fields": {
+            "reference": "tec",
+            "name": "Technicien",
+            "rank": 2
+        }
+    },
+    {
+        "model": "hotline.profile",
+        "pk": 3,
+        "fields": {
+            "reference": "dir",
+            "name": "Directeur Référent",
+            "rank": 1
+        }
+    },
+    {
+        "model": "hotline.profile",
+        "pk": 4,
+        "fields": {
+            "reference": "user",
+            "name": "Utilisateur",
+            "rank": 0
+        }
+    },
+    {
+        "model": "hotline.profile",
+        "pk": 4,
+        "fields": {
+            "reference": "user",
+            "name": "Utilisateur",
+            "rank": 0
+        }
+    }
+]
