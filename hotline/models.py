@@ -39,7 +39,8 @@ class Profile(models.Model):
 
 
 class Person(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT, blank=False)
+    user = models.ForeignKey(
+        User, on_delete=models.PROTECT, blank=True, null=True)
     phone = models.CharField(
         max_length=15,
         validators=[
