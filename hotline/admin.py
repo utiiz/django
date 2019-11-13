@@ -7,15 +7,16 @@ from .models import *
 
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'street', 'city', 'postal_code', 'technician',)
+    list_display = ('name', 'street', 'city',
+                    'postal_code', 'technician')
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    fielist_displaylds = ('reference', 'name', 'rank',)
+    list_display = ('reference', 'name', 'rank',)
 
 
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'phone', 'customer', 'profile',)
+    list_display = ('id', 'user', 'phone', 'profile',)
 
 
 class TicketAdmin(admin.ModelAdmin):

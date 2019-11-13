@@ -51,12 +51,9 @@ class Person(models.Model):
         blank=True,
         null=True
     )
-    customer = models.ForeignKey(
-        Customer, on_delete=models.PROTECT,
-        blank=True,
-        null=True)
+    customers = models.ManyToManyField(Customer, related_name='persons')
     profile = models.ForeignKey(
-        Profile, on_delete=models.PROTECT,
+        Profile, related_name="persons", on_delete=models.PROTECT,
         blank=True,
         null=True)
 

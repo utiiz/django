@@ -13,6 +13,7 @@ class CreateCustomer(graphene.relay.ClientIDMutation):
         city = graphene.String()
         postal_code = graphene.String()
         technician = graphene.String()
+        persons = graphene.List(graphene.String)
 
     def mutate_and_get_payload(self, info, **kwargs):
 
@@ -31,6 +32,11 @@ class CreateCustomer(graphene.relay.ClientIDMutation):
                 kwargs.get('technician'))
             customer.technician = Person.objects.get(id=technician_id)
         customer.save()
+        if 'persons' in kwargs:
+            for item in kwargs.get('persons'):
+                person_node, person_id = from_global_id(item)
+                p = Person.objects.get(id=person_id)
+                customer.persons.add(p)
         return CreateCustomer(customer=customer)
 
 
@@ -45,6 +51,8 @@ class UpdateCustomer(graphene.relay.ClientIDMutation):
         city = graphene.String(required=False, default_value=None)
         postal_code = graphene.String(required=False, default_value=None)
         technician = graphene.String(required=False, default_value=None)
+        persons = graphene.List(graphene.String)
+        removed_persons = graphene.List(graphene.String)
         null = graphene.List(graphene.String)
 
     def mutate_and_get_payload(self, info, **kwargs):
@@ -64,6 +72,21 @@ class UpdateCustomer(graphene.relay.ClientIDMutation):
             technician_node, technician_id = from_global_id(
                 kwargs.get('technician'))
             customer.technician = Person.objects.get(id=technician_id)
+
+        if 'persons' in kwargs:
+            customer.persons.clear()
+            for item in kwargs.get('persons'):
+                person_node, person_id = from_global_id(item)
+                p = Person.objects.get(id=person_id)
+                customer.persons.add(p)
+
+        '''
+        if 'removed_persons' in kwargs:
+            for item in kwargs.get('removed_persons'):
+                person_node, person_id = from_global_id(item)
+                p = Person.objects.get(id=person_id)
+                customer.persons.remove(p)
+        '''
 
         if 'null' in kwargs:
             for item in kwargs.get('null'):
@@ -159,7 +182,7 @@ class CreatePerson(graphene.relay.ClientIDMutation):
     class Input:
         user = graphene.String()
         phone = graphene.String()
-        customer = graphene.String()
+        customers = graphene.List(graphene.String)
         profile = graphene.String()
 
     def mutate_and_get_payload(self, info, **kwargs):
@@ -171,15 +194,19 @@ class CreatePerson(graphene.relay.ClientIDMutation):
             person.user = User.objects.get(id=user_id)
         if 'phone' in kwargs:
             person.phone = kwargs.get('phone')
-        if 'customer' in kwargs:
-            customer_node, customer_id = from_global_id(
-                kwargs.get('customer'))
-            person.customer = Customer.objects.get(id=customer_id)
         if 'profile' in kwargs:
             profile_node, profile_id = from_global_id(
                 kwargs.get('profile'))
             person.profile = Profile.objects.get(id=profile_id)
         person.save()
+
+        
+        if 'customers' in kwargs:
+            for customer in kwargs.get('customers'):
+                customer_node, customer_id = from_global_id(customer)
+                c = Customer.objects.get(id=customer_id)
+                person.customers.add(c)
+
         return CreatePerson(person=person)
 
 
@@ -190,7 +217,7 @@ class UpdatePerson(graphene.relay.ClientIDMutation):
         id = graphene.String()
         user = graphene.String(required=False)
         phone = graphene.String(required=False, null=True)
-        customer = graphene.String(required=False)
+        customers = graphene.List(graphene.String)
         profile = graphene.String(required=False)
         null = graphene.List(graphene.String)
 
@@ -205,14 +232,18 @@ class UpdatePerson(graphene.relay.ClientIDMutation):
             person.user = User.objects.get(id=user_id)
         if 'phone' in kwargs:
             person.phone = kwargs.get('phone')
-        if 'customer' in kwargs:
-            customer_node, customer_id = from_global_id(
-                kwargs.get('customer'))
-            person.customer = Customer.objects.get(id=customer_id)
+        if 'customers' in kwargs:
+            person.customers.clear()
+            for item in kwargs.get('persons'):
+                customer_node, customer_id = from_global_id(item)
+                c = Customer.objects.get(id=customer_id)
+                person.customers.add(c)
         if 'profile' in kwargs:
             profile_node, profile_id = from_global_id(
                 kwargs.get('profile'))
             person.profile = Profile.objects.get(id=profile_id)
+
+        
 
         if 'null' in kwargs:
             for item in kwargs.get('null'):
