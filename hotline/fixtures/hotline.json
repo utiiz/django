@@ -1,5 +1,47 @@
 [
     {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$150000$fgGbJ131MFdU$OUewF371fZxbH6E94NodAzMaAXAmoTdZ6WBirG52XL8=",
+            "is_superuser": true,
+            "username": "t.kervran",
+            "first_name": "Tanguy",
+            "last_name": "Kervran",
+            "email": "t.kervran@groupe-creative.fr",
+            "is_staff": true,
+            "is_active": true
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$150000$fgGbJ131MFdU$OUewF371fZxbH6E94NodAzMaAXAmoTdZ6WBirG52XL8=",
+            "is_superuser": false,
+            "username": "o.nedelec",
+            "first_name": "Olivier",
+            "last_name": "Nedelec",
+            "email": "o.nedelec@irvi.fr",
+            "is_staff": false,
+            "is_active": false
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$150000$fgGbJ131MFdU$OUewF371fZxbH6E94NodAzMaAXAmoTdZ6WBirG52XL8=",
+            "is_superuser": false,
+            "username": "c.kervran",
+            "first_name": "Chantal",
+            "last_name": "Kervran",
+            "email": "kervran.chantal@saint-louis.net",
+            "is_staff": false,
+            "is_active": false
+        }
+    },
+    {
         "model": "hotline.profile",
         "pk": 1,
         "fields": {
@@ -36,12 +78,83 @@
         }
     },
     {
-        "model": "hotline.profile",
-        "pk": 4,
+        "model": "hotline.person",
+        "pk": 1,
         "fields": {
-            "reference": "user",
-            "name": "Utilisateur",
-            "rank": 0
+            "user": 1,
+            "phone": "+33648450552",
+            "profile": 1
+        }
+    },
+    {
+        "model": "hotline.person",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "phone": "+33603014627",
+            "profile": 1
+        }
+    },
+    {
+        "model": "hotline.person",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "phone": "+33671073376",
+            "profile": 2
+        }
+    },
+    {
+        "model": "hotline.customer",
+        "pk": 1,
+        "fields": {
+            "name": "Irvi",
+            "street": "3 Rue Jean de la Bruyère",
+            "city": "Guipavas",
+            "postal_code": "29480",
+            "technician": 2,
+            "persons": [
+                1,
+                2
+            ]
+        }
+    },
+    {
+        "model": "hotline.customer",
+        "pk": 2,
+        "fields": {
+            "name": "Saint-Louis",
+            "street": "63 Grand Rue",
+            "city": "Châteaulin",
+            "postal_code": "29150",
+            "technician": 3,
+            "persons": [
+                1,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "model": "hotline.ticket",
+        "pk": 1,
+        "fields": {
+            "location": "Lorem ipsum dolor",
+            "description": "Qui ut aute velit fugiat reprehenderit. Do incididunt commodo nostrud incididunt aliqua ex nulla nisi. Pariatur deserunt occaecat labore aliquip culpa in laborum voluptate aliquip esse. Ex fugiat eu culpa officia sit veniam Lorem. Nulla velit occaecat laboris aute voluptate ad quis elit in est enim laboris occaecat.",
+            "person": 2,
+            "customer": 2,
+            "technician": 3
+        }
+    },
+    {
+        "model": "hotline.ticket",
+        "pk": 2,
+        "fields": {
+            "location": "Qui officia nisi",
+            "description": "Reprehenderit tempor nisi consequat nisi elit ea eu veniam mollit sit. Cupidatat dolore aliquip officia non anim. Ad non aliqua qui ipsum aliqua laboris. Officia enim veniam labore enim proident nisi. Est nulla amet mollit id dolore exercitation sit veniam laborum. Reprehenderit voluptate aute commodo Lorem nisi qui esse elit sint ut mollit ullamco qui velit. Mollit aliqua reprehenderit anim ex et tempor sit eiusmod.",
+            "person": 2,
+            "customer": 1,
+            "technician": 1
         }
     }
 ]

@@ -24,6 +24,7 @@ class Customer(models.Model):
     )
     technician = models.ForeignKey(
         'Person', on_delete=models.PROTECT, related_name='+', blank=True, null=True)
+    persons = models.ManyToManyField('Person', related_name='customers')
 
     def __str__(self):
         return self.name
@@ -52,7 +53,7 @@ class Person(models.Model):
         blank=True,
         null=True
     )
-    customers = models.ManyToManyField(Customer, related_name='persons')
+    # customers = models.ManyToManyField(Customer, related_name='persons')
     profile = models.ForeignKey(
         Profile, related_name="persons", on_delete=models.PROTECT,
         blank=True,
