@@ -36,6 +36,12 @@ def customerFilter(customers, old_pk):
             return customer
     return None
 
+def usernameCheck(users, username) :
+    for user in users:
+        if user['fields']['username'] == username:
+            return True
+    return False
+
 with open('./datas.json') as f:
     datas = json.load(f)
     profiles = dataFilter(datas, 'profil')
@@ -65,7 +71,7 @@ with open('./datas.json') as f:
                 "last_name": u['nom'].title(),
                 "email": u['mail'],
                 "is_staff": False,
-                "is_active": False
+                "is_active": True
             }
         })
 
@@ -134,9 +140,10 @@ with open('./datas.json') as f:
                 }
             })
 
-    output.append(_users)
-    output.append(_profiles)
-    output.append(_persons)
-    output.append(_customers)
-    output.append(_tickets)
+    output = _users + _profiles + _persons + _customers + _tickets
+
+    for o in output:
+        if 'old_pk' in o:
+            del o['old_pk']
+
     write(output)
