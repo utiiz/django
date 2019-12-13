@@ -36,11 +36,16 @@ def customerFilter(customers, old_pk):
             return customer
     return None
 
-def usernameCheck(users, username) :
+def getUsername(users, username) :
     for user in users:
         if user['fields']['username'] == username:
-            return True
-    return False
+            try:
+                username = username[:-1] + str(int(username[-1:]) + 1)
+                print(username, username[-1:], int(username[-1:]))
+            except ValueError:
+                username = username + "1"
+                pass
+    return username
 
 with open('./datas.json') as f:
     datas = json.load(f)
@@ -59,6 +64,7 @@ with open('./datas.json') as f:
     users = dataFilter(datas, 'utilisateur')
     for i in range(len(users)):
         u = users[i]
+        username = getUsername(_users, u['login'])
         _users.append({
             "model": "auth.user",
             "old_pk": int(u['idUtilisateur']),
@@ -66,7 +72,7 @@ with open('./datas.json') as f:
             "fields": {
                 "password": "pbkdf2_sha256$150000$fgGbJ131MFdU$OUewF371fZxbH6E94NodAzMaAXAmoTdZ6WBirG52XL8=",
                 "is_superuser": False,
-                "username": u['login'],
+                "username": username,
                 "first_name": u['prenom'].title(),
                 "last_name": u['nom'].title(),
                 "email": u['mail'],

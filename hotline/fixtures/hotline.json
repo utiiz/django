@@ -4,7 +4,7 @@
         "pk": 1,
         "fields": {
             "password": "pbkdf2_sha256$150000$fgGbJ131MFdU$OUewF371fZxbH6E94NodAzMaAXAmoTdZ6WBirG52XL8=",
-            "is_superuser": true,
+            "is_superuser": false,
             "username": "onedelec",
             "first_name": "Olivier",
             "last_name": "Nedelec",
@@ -2959,7 +2959,7 @@
         "fields": {
             "password": "pbkdf2_sha256$150000$fgGbJ131MFdU$OUewF371fZxbH6E94NodAzMaAXAmoTdZ6WBirG52XL8=",
             "is_superuser": false,
-            "username": "c.gelebart",
+            "username": "c.gelebart1",
             "first_name": "C\u00e9cile",
             "last_name": "Gelebart",
             "email": "cecile.gelebart@laposte.net",
@@ -3379,7 +3379,7 @@
         "fields": {
             "password": "pbkdf2_sha256$150000$fgGbJ131MFdU$OUewF371fZxbH6E94NodAzMaAXAmoTdZ6WBirG52XL8=",
             "is_superuser": false,
-            "username": "m.jule",
+            "username": "m.jule1",
             "first_name": "Michel",
             "last_name": "Jule",
             "email": "",
@@ -4751,7 +4751,7 @@
         "fields": {
             "password": "pbkdf2_sha256$150000$fgGbJ131MFdU$OUewF371fZxbH6E94NodAzMaAXAmoTdZ6WBirG52XL8=",
             "is_superuser": false,
-            "username": "f.auffray",
+            "username": "f.auffray1",
             "first_name": "Francoise",
             "last_name": "Auffray",
             "email": "",
@@ -4793,7 +4793,7 @@
         "fields": {
             "password": "pbkdf2_sha256$150000$fgGbJ131MFdU$OUewF371fZxbH6E94NodAzMaAXAmoTdZ6WBirG52XL8=",
             "is_superuser": false,
-            "username": "e.galland",
+            "username": "e.galland1",
             "first_name": "Eric",
             "last_name": "Galland",
             "email": "direction@collegeconquet.org",
@@ -4835,7 +4835,7 @@
         "fields": {
             "password": "pbkdf2_sha256$150000$fgGbJ131MFdU$OUewF371fZxbH6E94NodAzMaAXAmoTdZ6WBirG52XL8=",
             "is_superuser": false,
-            "username": "d.lannuzel",
+            "username": "d.lannuzel1",
             "first_name": "David",
             "last_name": "Lannuzel",
             "email": "",
