@@ -187,7 +187,7 @@ class CreatePerson(graphene.relay.ClientIDMutation):
 
     def mutate_and_get_payload(self, info, **kwargs):
 
-        person = Profile()
+        person = Person()
         if 'user' in kwargs:
             user_node, user_id = from_global_id(
                 kwargs.get('user'))
@@ -268,8 +268,80 @@ class DeletePerson(graphene.relay.ClientIDMutation):
         return DeletePerson(person=person)
 
 
+class CreateParameter(graphene.relay.ClientIDMutation):
+    parameter = graphene.Field(ParameterNode)
+
+    class Input:
+        reference = graphene.String()
+        name = graphene.String()
+        type = graphene.Int()
+        rank = graphene.String()
+
+    def mutate_and_get_payload(self, info, **kwargs):
+
+        parameter = Parameter()
+        if 'reference' in kwargs:
+            parameter.reference = kwargs.get('reference')
+        if 'name' in kwargs:
+            parameter.name = kwargs.get('name')
+        if 'type' in kwargs:
+            parameter.type = kwargs.get('type')
+        if 'rank' in kwargs:
+            parameter.rank = kwargs.get('rank')
+        parameter.save()
+        
+        return CreateParameter(parameter=parameter)
+
+
+class UpdateParameter(graphene.relay.ClientIDMutation):
+    parameter = graphene.Field(ParameterNode)
+
+    class Input:
+        id = graphene.String()
+        reference = graphene.String()
+        name = graphene.String()
+        type = graphene.Int()
+        rank = graphene.String()
+
+    def mutate_and_get_payload(self, info, **kwargs):
+        parameter_node, parameter_id = from_global_id(
+            kwargs.get('id'))
+
+        parameter = Person.objects.get(id=parameter_id)
+        if 'reference' in kwargs:
+            parameter.reference = kwargs.get('reference')
+        if 'name' in kwargs:
+            parameter.name = kwargs.get('name')
+        if 'type' in kwargs:
+            parameter.type = kwargs.get('type')
+        if 'rank' in kwargs:
+            parameter.rank = kwargs.get('rank')
+
+        if 'null' in kwargs:
+            for item in kwargs.get('null'):
+                setattr(parameter, item, None)
+
+        parameter.save()
+        return UpdateParameter(parameter=parameter)
+
+
+class DeleteParameter(graphene.relay.ClientIDMutation):
+    parameter = graphene.Field(ParameterNode)
+
+    class Input:
+        id = graphene.String()
+
+    def mutate_and_get_payload(self, info, **kwargs):
+        parameter_node, parameter_id = from_global_id(
+            kwargs.get('id'))
+        parameter = Parameter.objects.get(
+            id=parameter_id)
+        parameter.delete()
+        return DeleteParameter(parameter=parameter)
+
+
 class CreateTicket(graphene.relay.ClientIDMutation):
-    ticket = graphene.Field(PersonNode)
+    ticket = graphene.Field(TicketNode)
 
     class Input:
         location = graphene.String()
@@ -280,7 +352,7 @@ class CreateTicket(graphene.relay.ClientIDMutation):
 
     def mutate_and_get_payload(self, info, **kwargs):
 
-        ticket = Profile()
+        ticket = Ticket()
         if 'location' in kwargs:
             ticket.location = kwargs.get('location')
         if 'description' in kwargs:

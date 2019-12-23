@@ -25,6 +25,13 @@ class PersonNode(DjangoObjectType):
         interfaces = (graphene.relay.Node,)
 
 
+class ParameterNode(DjangoObjectType):
+    class Meta:
+        model = Parameter
+        filter_fields = ['reference', 'name', 'type', 'rank', ]
+        interfaces = (graphene.relay.Node,)
+
+
 class TicketNode(DjangoObjectType):
     class Meta:
         model = Ticket

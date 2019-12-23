@@ -6,7 +6,8 @@ _users = []
 _profiles = []
 _persons = []
 _customers = []
-_tickets = []  
+_parameters = []
+_tickets = []
 
 def write(data) :
     with open('data.json', 'w') as outfile:
@@ -34,6 +35,12 @@ def customerFilter(customers, old_pk):
     for customer in customers:
         if customer['old_pk'] == int(old_pk):
             return customer
+    return None
+
+def ticketFilter(tickets, old_pk):
+    for ticket in tickets:
+        if ticket['old_pk'] == int(old_pk):
+            return ticket
     return None
 
 def getUsername(users, username) :
@@ -124,6 +131,22 @@ with open('./datas.json') as f:
             if not person['pk'] in customer['fields']['persons']:
                 customer['fields']['persons'].append(person['pk'])
             
+    parameters = dataFilter(datas, 'parametre')
+    for i in range(len(parameters)):
+        p = parameters[i]
+
+        _parameters.append({
+                "model": "hotline.parameter",
+                "old_pk": p['refParametre'],
+                "pk": i + 1,
+                "fields": {
+                    "reference": p['refParametre'],
+                    "name": p['libelle'],
+                    "type": p['type'],
+                    "rank": p['rang']
+                }
+            })
+
     tickets = dataFilter(datas, 'ticket')
     for i in range(len(tickets)):
         t = tickets[i]
@@ -142,11 +165,21 @@ with open('./datas.json') as f:
                     "description": t['description'],
                     "person": person['pk'],
                     "customer": customer['pk'],
-                    "technician": technician['pk']
+                    "technician": technician['pk'],
+                    "attachments": []
                 }
             })
 
-    output = _users + _profiles + _persons + _customers + _tickets
+    attachments = dataFilter(datas, 'piece_jointe')
+    for i in range(len(attachments)):
+        a = attachments[i]
+
+        ticket = ticketFilter(_tickets, a['idTicket'])
+
+        if ticket:
+            ticket['fields']['attachments'].append(a['chemin'])
+
+    output = _users + _profiles + _persons + _customers + _parameters + _tickets
 
     for o in output:
         if 'old_pk' in o:

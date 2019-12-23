@@ -18,6 +18,10 @@ class PersonAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'phone', 'profile',)
 
 
+class ParameterAdmin(admin.ModelAdmin):
+    list_display = ('id', 'reference', 'name', 'type', 'rank',)
+
+
 class TicketAdmin(admin.ModelAdmin):
     list_display = ('location', 'description',
                     'person', 'customer', 'technician',)
@@ -26,4 +30,5 @@ class TicketAdmin(admin.ModelAdmin):
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Person, PersonAdmin)
+admin.site.register(Parameter, ParameterAdmin)
 admin.site.register(Ticket, TicketAdmin)

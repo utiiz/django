@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.validators import RegexValidator
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
@@ -63,6 +64,16 @@ class Person(models.Model):
         return self.user.username
 
 
+class Parameter(models.Model):
+    reference = models.CharField(max_length=15, blank=True, null=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    type = models.CharField(max_length=15, blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username
+
+
 class Ticket(models.Model):
     location = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -72,6 +83,7 @@ class Ticket(models.Model):
         Customer, related_name='tickets', on_delete=models.PROTECT, blank=True, null=True)
     technician = models.ForeignKey(
         Person, related_name='assigned_tickets', on_delete=models.PROTECT, blank=True, null=True)
+    attachments = ArrayField(models.CharField(max_length=1024), blank=True, null=True)
 
     def __str__(self):
         return self.location
